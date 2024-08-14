@@ -5,10 +5,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import addToCart from '../App'
 
 
-function OneProduct({product}) {
+function OneProduct({product, addToCart}) {
+    console.log(product, "this is product")
   return (
     <div>
        <Card sx={{ maxWidth: 345 }}>
@@ -27,7 +27,7 @@ function OneProduct({product}) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={()=>addToCart(product?.id)}>add to cart</Button>
+        <Button size="small" onClick={()=>addToCart(product)}>add to cart</Button>
         <span>{product?.price}</span>
       </CardActions>
     </Card>

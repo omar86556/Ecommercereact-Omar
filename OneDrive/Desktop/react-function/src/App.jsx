@@ -9,22 +9,23 @@ import Cart from './components/Cart';
 
 
 function App() {
-	let [purchacedProducts, setPts] = useState([])
+	let [purchacedProducts, setPurchacedProducts] = useState([])
 	const [prods, setProds] = useState([])
 	const [view, setView] = useState("home")
 	
 	console.log(purchacedProducts, "these are the not purchased products")
 
 	function addToCart(id) {
-		setPts(...purchacedProducts, id)
+		setPurchacedProducts([...purchacedProducts, id])
 	}
-	console.log(addToCart)
+
+	let addProduct = (p) => setProds([...prods, p])
 
 	function changeView(toWhere) {
 		setView(toWhere)
 	}
 	useEffect(() => {
-		axios.get("http://localhost:3000/products.json").then(res => setProds(res.data)).catch(err => console.log(err))
+		axios.get("http://localhost:7000/products.json").then(res => setProds(res.data)).catch(err => console.log(err))
 	}, [])
 	console.log(prods, "those are my products")
 	return (
@@ -33,8 +34,8 @@ function App() {
 			
 
 			{view === "home" && <AllProducts data={prods} pts={purchacedProducts} addToCart={addToCart}/>}
-			{view === "create" && <CreateProduct  data={prods} />}
-			{view === "cart" && <Cart data={prods} />}
+			{view === "create" && <CreateProduct  data={prods} addProduct= {addProduct} changeView={changeView} />}
+			{view === "cart" && <Cart data={prods}  pts={purchacedProducts}/>}
 		</div>
 	)
 }
